@@ -2,7 +2,7 @@
 import ContactCard from "@/components/ContactCard.vue";
 import InputSearch from "@/components/InputSearch.vue";
 import ContactList from "@/components/ContactList.vue";
-import ContactService from "@/services/contact.service.js";
+import ContactService from "@/services/contact.service";
 
 export default {
     components: {
@@ -10,6 +10,7 @@ export default {
         InputSearch,
         ContactList,
     },
+    // Đoạn mã xử lý đầy đủ sẽ trình bày bên dưới
      data() {
         return {
             contacts: [],
@@ -81,6 +82,7 @@ export default {
     },
 };
 </script>
+
 <template>
     <div class="page row">
         <div class="col-md-10">
@@ -94,7 +96,7 @@ export default {
             <ContactList
                 v-if="filteredContactsCount > 0"
                 :contacts="filteredContacts"
-                v-model="activeIndex"
+                v-model:activeIndex="activeIndex"
             />
             <p v-else>Không có liên hệ nào.</p>
 
@@ -102,11 +104,9 @@ export default {
                 <button class="btn btn-sm btn-primary" @click="refreshList()">
                     <i class="fas fa-redo"></i> Làm mới
                 </button>
-
-                <button class="btn btn-sm btn-success" @click="goToAddContact">
-                    <i class="fas fa-plus"></i> Thêm mới
+                    <button class="btn btn-sm btn-success" @click="goToAddContact">
+                        <i class="fas fa-plus"></i> Thêm mới
                 </button>
-
                 <button
                     class="btn btn-sm btn-danger"
                     @click="removeAllContacts"
@@ -117,7 +117,7 @@ export default {
         </div>
         <div class="mt-3 col-md-6">
             <div v-if="activeContact">
-                <h4>
+                 <h4>
                     Chi tiết Liên hệ
                     <i class="fas fa-address-card"></i>
                 </h4>
@@ -131,13 +131,11 @@ export default {
                     <span class="mt-2 badge badge-warning">
                         <i class="fas fa-edit"></i> Hiệu chỉnh</span
                     >
-                </router-link>
+                </router-link> 
             </div>
         </div>
     </div>
 </template>
-
-
 
 <style scoped>
 .page {
