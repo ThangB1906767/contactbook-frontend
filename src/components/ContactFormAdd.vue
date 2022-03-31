@@ -1,13 +1,13 @@
 
 <template>
-    <Form @submit="$emit('submit:contact', contactLocal)" :validation-schema="contactFormSchema">
+    <Form :validation-schema="contactFormSchema">
         <div class="form-group">
                 <label for="name">Tên</label>
             <Field 
                 name="name"
                 type="text"
                 class="form-control"
-                v-model="contactLocal.name" 
+                v-model="contact.name"
             />
             <ErrorMessage name="name" class="error-feedback" />
         </div>
@@ -17,7 +17,7 @@
                 name="email"
                 type="email"
                 class="form-control"
-                v-model="contactLocal.email"
+                 v-model="contact.email"
             />
             <ErrorMessage name="email" class="error-feedback" />
         </div>
@@ -27,7 +27,7 @@
                 name="address"
                 type="text"
                 class="form-control"
-                v-model="contactLocal.address"
+                 v-model="contact.address"
             />
             <ErrorMessage name="address" class="error-feedback" />
         </div>
@@ -37,19 +37,18 @@
                 name="phone"
                 type="tel"
                 class="form-control"
-                v-model="contactLocal.phone"
+                 v-model="contact.phone"
             />
             <ErrorMessage name="phone" class="error-feedback" />
         </div>
         <div class="form-group form-check">
-            <input name="favorite" type="checkbox" class="form-check-input" v-model="contactLocal.favorite"/>
+            <input name="favorite" type="checkbox" class="form-check-input" v-model="contact.favorite"/>
             <label for="favorite" class="form-check-label">
                 <strong>Liên hệ yêu thích</strong>
             </label>
         </div>
         <div class="form-group">
-            <button class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i>Lưu</button>
-            <button v-if="contactLocal.id" type="button" class="ml-2 btn btn-danger" @click="$emit('delete:contact', contactLocal.id)"><i class="fa-solid fa-trash"></i>Xóa</button>
+            <button class="btn btn-primary" @click="getContactNew"><i class="fa-solid fa-floppy-disk"></i>Lưu</button>
         </div>
     </Form>
 </template>
@@ -57,18 +56,15 @@
 <script>
     import * as yup from "yup";
     import { Form, Field, ErrorMessage } from "vee-validate";
+    import ContactService from "@/services/contact.service";
     export default {
         components: {
             Form,
             Field,
             ErrorMessage,
         },
-        emits: ["submit:contact", "delete:contact"],
-        props: {
-        contact: { type: Object, required: true }
-        },
         data() {
-        const contactFormSchema = yup.object().shape({
+            const contactFormSchema = yup.object().shape({
             name: yup
             .string()
             .required("Tên phải có giá trị.")
@@ -89,11 +85,25 @@
             ),
             });
             return {
-            contactLocal: this.contact,
             contactFormSchema,
+            contact:{
+                name:"",
+                phone:"",
+                address:"",
+                favorite:false,     
+            }
                 };
         },
+         methods:{
+             getContactNew(){
+                 if(confirm("Bạn có chắc chắn thêm !")){
+                    this.$router.push({ name: "ContactBook" });
+                    return ContactService.create(this.contact);
+                 }
+             }
+        }
     };
+   
 </script>
 
 <style scoped>
