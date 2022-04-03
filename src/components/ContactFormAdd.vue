@@ -1,13 +1,13 @@
 
 <template>
-    <Form :validation-schema="contactFormSchema">
+    <Form @submit="$emit('submit:contact')" :validation-schema="contactFormSchema">
         <div class="form-group">
                 <label for="name">Tên</label>
             <Field 
                 name="name"
                 type="text"
                 class="form-control"
-                v-model="contact.name"
+                v-model="contactnew.name"
             />
             <ErrorMessage name="name" class="error-feedback" />
         </div>
@@ -17,7 +17,7 @@
                 name="email"
                 type="email"
                 class="form-control"
-                 v-model="contact.email"
+                 v-model="contactnew.email"
             />
             <ErrorMessage name="email" class="error-feedback" />
         </div>
@@ -27,7 +27,7 @@
                 name="address"
                 type="text"
                 class="form-control"
-                 v-model="contact.address"
+                 v-model="contactnew.address"
             />
             <ErrorMessage name="address" class="error-feedback" />
         </div>
@@ -42,7 +42,7 @@
             <ErrorMessage name="phone" class="error-feedback" />
         </div>
         <div class="form-group form-check">
-            <input name="favorite" type="checkbox" class="form-check-input" v-model="contact.favorite"/>
+            <input name="favorite" type="checkbox" class="form-check-input" v-model="contactnew.favorite"/>
             <label for="favorite" class="form-check-label">
                 <strong>Liên hệ yêu thích</strong>
             </label>
@@ -63,6 +63,7 @@
             Field,
             ErrorMessage,
         },
+        emits: ["submit:contact"],
         data() {
             const contactFormSchema = yup.object().shape({
             name: yup
@@ -86,7 +87,7 @@
             });
             return {
             contactFormSchema,
-            contact:{
+            contactnew:{
                 name:"",
                 phone:"",
                 address:"",
@@ -96,7 +97,7 @@
         },
          methods:{
              getContactNew(){
-                 if(confirm("Bạn có chắc chắn thêm !")){
+                 if(confirm("Bạn có chắc chắn thêm !" )){
                     this.$router.push({ name: "ContactBook" });
                     return ContactService.create(this.contact);
                  }
