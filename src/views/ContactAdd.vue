@@ -1,7 +1,7 @@
 <template>
 <div class="page">
-        <h4>Thêm liên hệ mới</h4>
-    <Form @submit="getContactNew" :validation-schema="contactFormSchema">
+         <h4>Thêm liên hệ mới</h4>
+  <Form @submit="getContactNew" :validation-schema="contactFormSchema">
         <div class="form-group">
                 <label for="name">Tên</label>
             <Field 
@@ -51,7 +51,7 @@
         <div class="form-group">
             <button class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i>Lưu</button>
         </div>
-    </Form>
+    </Form> 
 </div>
 </template>
 
@@ -65,7 +65,6 @@ import ContactService from "@/services/contact.service";
             Field,
             ErrorMessage,
         },
-        emits: ["submit:contact"],
         data() {
             const contactFormSchema = yup.object().shape({
             name: yup
