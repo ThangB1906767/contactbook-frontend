@@ -1,4 +1,3 @@
-
 <template>
     <Form @submit="$emit('submit:contact', contactLocal)" :validation-schema="contactFormSchema">
         <div class="form-group">
