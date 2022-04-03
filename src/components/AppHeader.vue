@@ -4,7 +4,7 @@
         <div class="mr-auto navbar-nav">
             <li class="nav-item">
                 <router-link :to="{ name: 'ContactBook' }" class="nav-link">
-                        Danh bạ
+                    Danh bạ
                     <i class="fas fa-address-book"></i>
                 </router-link>
             </li>
