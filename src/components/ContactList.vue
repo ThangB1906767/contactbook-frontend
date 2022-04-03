@@ -1,3 +1,16 @@
+<template>
+    <ul class="list-group">
+        <li
+            class="list-group-item"
+            v-for="(contact, index) in contacts"
+            :key="contact.id"
+            :class="{ active: index === selectedIndex }"
+            @click="select(index)"
+        >
+            {{ contact.name }}
+        </li>
+    </ul>
+</template>
 <script>
 export default {
     props: {
@@ -25,17 +38,3 @@ export default {
     },
 };
 </script>
-
-<template>
-    <ul class="list-group">
-        <li
-            class="list-group-item"
-            v-for="(contact, index) in contacts"
-            :key="contact.id"
-            :class="{ active: index === selectedIndex }"
-            @click="select(index)"
-        >
-            {{ contact.name }}
-        </li>
-    </ul>
-</template>
